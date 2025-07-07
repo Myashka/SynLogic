@@ -30,6 +30,8 @@ This repository contains the code and data for SynLogic, a comprehensive logical
 </p> 
 
 ## News
+- **[2025/07/07]** :fire: We provide guidance for using SynLogic data to conduct RL training with the Verl framework. See [docs/training_guidance.md](docs/training_guidance.md) for details. 
+
 - **[2025/06/03]** :fire: Trained Models Released on Hugging Face:  
 → [MiniMaxAI/SynLogic Collection](https://huggingface.co/collections/MiniMaxAI/synlogic-6836c3246fca0277657ff032)  
 
@@ -72,6 +74,9 @@ python scripts/arrow_maze.py \
   --arrow_fill_rate_max 0.9
 ```
 
+### For RL Training
+
+We provide comprehensive guidance for using SynLogic data in reinforcement learning training. See [docs/training_guidance.md](docs/training_guidance.md) for detailed instructions on integrating SynLogic with the Verl framework.
 
 ## :rocket: Resources
 

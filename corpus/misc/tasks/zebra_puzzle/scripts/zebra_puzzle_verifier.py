@@ -6,6 +6,7 @@ from sympy.parsing.latex import parse_latex
 
 import json
 
+
 def _verifier(answer_str, user_response_str, type_safe=True):
     """验证用户响应是否与答案一致。
 
@@ -26,7 +27,6 @@ def _verifier(answer_str, user_response_str, type_safe=True):
         answer_obj = json.loads(answer_str)
     except json.JSONDecodeError:
         # 如果解析失败，直接比较原始字符串
-        # print("cannot load as dict, do string exact matching")
         return answer_str == user_response_str
     else:
         if isinstance(answer_obj, dict):
@@ -59,19 +59,19 @@ def _deep_compare(a, b, type_safe):
     # 检查类型是否一致（如果启用类型安全）
     if type_safe and type(a) is not type(b):
         return False
-    
+
     # 处理字典类型
     if isinstance(a, dict):
         if not isinstance(b, dict) or a.keys() != b.keys():
             return False
         return all(_deep_compare(a[k], b[k], type_safe) for k in a)
-    
+
     # 处理列表类型
     elif isinstance(a, list):
         if not isinstance(b, list) or len(a) != len(b):
             return False
         return all(_deep_compare(x, y, type_safe) for x, y in zip(a, b))
-    
+
     # 处理基本类型（根据类型安全性决定是否转换）
     else:
         return _compare_values(a, b, type_safe)
@@ -91,16 +91,22 @@ def _compare_values(a, b, type_safe):
 def _try_convert_number(value):
     """尝试将字符串转为数字（int/float）"""
     if isinstance(value, str):
-        try: return int(value)
-        except: pass
-        try: return float(value)
-        except: pass
+        try:
+            return int(value)
+        except:
+            pass
+        try:
+            return float(value)
+        except:
+            pass
     return value
+
 
 class ZebraPuzzleVerifier(Verifier):
     """
     Verifier for Zebra Puzzle
     """
+
     def verify(self, data: Data, test_solution: str):
         """The scoring function for zebra puzzle.
 
@@ -118,15 +124,14 @@ class ZebraPuzzleVerifier(Verifier):
         try:
             correct = _verifier(answer_str=ground_truth, user_response_str=extracted_answer, type_safe=True)
         except Exception as e:
-            print(f"Gold: {ground_truth} Response: {extracted_answer} Error: {str(e)}")
             correct = False
-        
+
         if correct:
             acc_score = 1.0
         else:
             acc_score = 0
 
         return acc_score
-    
+
     def extract_answer(self, test_solution: str):
         return test_solution

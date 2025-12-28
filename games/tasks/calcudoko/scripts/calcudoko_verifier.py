@@ -132,9 +132,6 @@ class CalcudokoVerifier(Verifier):
             return np.array(grid)
 
         except Exception as e:
-            import traceback
-
-            traceback.print_exc()
 
             # 尝试直接搜索[[...]]格式
             try:
@@ -272,9 +269,6 @@ class CalcudokoVerifier(Verifier):
             return True
 
         except Exception as e:
-            import traceback
-
-            traceback.print_exc()
             return False
 
 
